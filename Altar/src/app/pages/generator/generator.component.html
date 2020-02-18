@@ -1,0 +1,82 @@
+<!-- <p>generator works!</p> -->
+<div class="container">
+	<div class="row" style="align-items: center;">
+		<div class="col-md-3 col-xs-3">
+			<div 
+			class="form-group" 
+			[ngClass]="valide ? '' : 'has-danger'" >
+				<label for="InputCharacter">Character</label>
+				<input 
+					type="email" 
+					class="form-control"  
+					[ngClass]="valide ? '' : 'is-invalid'" id="InputCharacter" 
+					placeholder="Enter 1 character" 
+					[(ngModel)]="character" 
+					(input)="onAddCharacter()">
+				<div *ngIf="valide" class="invalid-feedback">
+					Sorry, enter only 1 character.
+				</div>
+			</div>
+		</div>
+		<div class="col-md-5 col-xs-5 blockquote time-center">
+			<p class="text-center text-info">{{ mytime }}</p>
+		</div>
+		<!-- <div class="col-md-3 col-xs-3"></div> -->
+		<div 
+			class="col-md-4 col-xs-4 btn-generate-center">
+			<button type="button" class="btn btn-primary" (click)="onGenerate()">Generate GRID</button>
+		</div>
+	</div>
+
+	<thead>
+		<tr>
+			<th scope="col"></th>
+			<th scope="col">0</th>
+			<th scope="col">1</th>
+			<th scope="col">2</th>
+			<th scope="col">3</th>
+			<th scope="col">4</th>
+			<th scope="col">5</th>
+			<th scope="col">6</th>
+			<th scope="col">7</th>
+			<th scope="col">8</th>
+			<th scope="col">9</th>
+		</tr>
+	  </thead>
+	  <tbody *ngIf="finish_generate === false">
+		  <tr>No fond</tr>
+	  </tbody>
+	  <tbody *ngIf="finish_generate === true">
+		  <tr  *ngFor="let s of generate_arr; let i = index;">
+				<th scope="row">{{i}}</th>
+				<td *ngFor="let indx of coltb"> 
+					{{s[indx]}}
+					<!-- <span [ngClass]="ClassRow(indx) ? 'text-danger' : 'text-info'">
+						{{s[indx]}}
+					</span> -->
+				</td>
+		  </tr>
+		<!-- <tr class="table-active" *ngFor="let character of generate_arr; let i = index;">
+		  <th scope="row">Active</th>
+		  <td>Column content</td>
+		  <td>Column content</td>
+		  <td>Column content</td>
+		</tr> -->
+		<!-- <tr >
+		  <th scope="row">Default</th>
+		  <td>Column content</td>
+		  <td>Column content</td>
+		  <td>Column content</td>
+		  <td>Column content</td>
+		  <td>Column content</td>
+		  <td>Column content</td>
+		  <td>Column content</td>
+		  <td>Column content</td>
+		  <td>Column content</td>
+		  <td>Column content</td>
+		</tr> -->
+
+	</tbody>
+
+
+</div>
