@@ -40,50 +40,11 @@ export class GeneratorComponent implements OnInit {
 	onAddCharacter(){
 		this.valide = false;
 		if(this.character.length !== 1){
-		return
+			return
 		}
 		this.valide = true;
-		console.log(this.character);
-		let stop: number = 20;
-		let coint: number = 0;
 		this.fixed = true;
 		setTimeout(() => { this.fixed = false; }, 4000); 
 		this.generator.onAddCharacter(this.character);
-		// this.generate_arr.map(
-		// 	(val, index) => {
-		// 		val.map(
-		// 			(value, indx) => {
-		// 				coint = coint + 1;
-		// 				if (coint > 20) {
-		// 					this.generate_arr[index][indx - 1] = this.onGenerateCharacter();
-		// 					return
-		// 				}
-		// 				this.generate_arr[index][indx - 1] = this.character;
-		// 			}
-		// 		)
-		// 	}
-		// );
-		// let count_first_character: number = 0;
-		// let count_second_character: number = 0;
-		// let time = moment().format('ss');
-		// let first_character : string = this.generate_arr[time[0]][time[1]];
-		// let second_character : string = this.generate_arr[time[1]][time[0]];
-		// console.log(`time: "${time}" first_character: ${first_character} second_character: ${second_character}`);
-		// this.generate_arr.map(
-		// 	(val, index) => {
-		// 		val.map(
-		// 		(value, indx) => {
-		// 			if (first_character === this.generate_arr[index][indx]) {
-		// 			count_first_character = count_first_character + 1;
-		// 			}
-		// 			if (second_character === this.generate_arr[index][indx]) {
-		// 			count_second_character = count_second_character + 1;
-		// 			}
-		// 		}
-		// 		)
-		// 	}
-		// );
-		// console.log(`time: "${time}" count_first_character: ${count_first_character} count_second_character: ${count_second_character}`);
-		// this.onGenerateCode(count_first_character, count_second_character);
 	}
 }

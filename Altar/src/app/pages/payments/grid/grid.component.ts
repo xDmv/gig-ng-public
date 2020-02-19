@@ -11,9 +11,7 @@ export class GridComponent implements OnInit {
 	@Input() dataSource: any;
 	constructor(
 		public generator: GeneratedataService
-	) { 
-		console.log(this.dataSource);
-	}
+	) { }
 	
 	ngOnInit(): void {
 		

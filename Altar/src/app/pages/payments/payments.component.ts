@@ -14,16 +14,13 @@ export class PaymentsComponent implements OnInit {
 
 	constructor(
 		public generator: GeneratedataService
-	) {
-
-	}
+	) {	}
 
 	ngOnInit(): void {
 
 	}
 
 	onAddPayment(){
-		console.log(`name: ${this.name} amount: ${this.amount} code: ${this.generator.code} grid: 64`)
 		let data = {
 			name: this.name,
 			amount: this.amount,
@@ -34,7 +31,6 @@ export class PaymentsComponent implements OnInit {
 	}
 
 	onSendToApi(){
-		console.log(this.generator.payment);
 		let rezult = {}
 		this.generator.payment.forEach(function(value, key){
 			rezult[key] = value

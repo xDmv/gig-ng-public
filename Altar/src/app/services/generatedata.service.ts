@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import * as moment from 'moment';
-import * as _ from 'lodash';
+import * as lodash  from 'lodash';
 
 @Injectable({
 	providedIn: 'root'
@@ -20,6 +20,7 @@ export class GeneratedataService {
 		['a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a'],
 		['a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a']
 	];
+
 	public newtime: string;
 	public code: string;
 	public payment = new Map();
@@ -55,6 +56,7 @@ export class GeneratedataService {
 		let time = moment().format('ss');
 		let first_character : string = this.generate_arr[time[0]][time[1]];
 		let second_character : string = this.generate_arr[time[1]][time[0]];
+
 		this.generate_arr.map(
 			(val, index) => {
 				val.map(
@@ -69,6 +71,7 @@ export class GeneratedataService {
 				)
 			}
 		);
+
 		this.onGenerateCode(count_first_character, count_second_character);
 	}
 
@@ -88,9 +91,7 @@ export class GeneratedataService {
 	}
 
 	onAddCharacter(character: string){
-		console.log(character);
-		let coint : number = 0;
-		let getSymbolArray = function(symbol,symbolProbability,size = [10,10]){
+		let getSymbolArray = function(symbol, symbolProbability,size = [10,10]){
 			let iMax=size[0];
 			let jMax=size[1];
 			let maxSymbolCount = Math.floor(iMax*jMax*symbolProbability);
@@ -112,7 +113,6 @@ export class GeneratedataService {
 				return result;
 			};
 			
-			
 			let randSymbol = function(symbol,length=1) {
 				let result = '';
 				let characters = 'abcdefghijklmnopqrstuvwxyz';
@@ -123,49 +123,13 @@ export class GeneratedataService {
 				}
 				return result;
 			}
-		let new_arr = getSymbolArray(character,0.2);
-		console.log(new_arr);
-		this.generate_arr.map(
-				(val, index) => {
-					val.map(
-						(value, indx) => {
-							this.generate_arr[index][indx] = new_arr[index][indx];
-						}
-					)
-				}
-			);
-
-		console.log(this.generate_arr);
-		// let x = [...this.generate_arr.entries()].reduce((acc, [key, val]) => {
-		// 	acc += val.filter(item => item === character).length;
-		// 	console.log(`key: ${key} value: ${val} n: ${val.filter(item => item === character).length}`);
-		// 	return acc;
-		// }, 0);
-		// console.log(x);
-		
-		// this.generate_arr.map(
-		// 	(val, index) => {
-				
-				
-		// 		// val.map(
-		// 		// 	(value, indx) => {
-		// 		// 		coint = coint + 1;
-		// 		// 		if (coint > 20) {
-		// 		// 			this.generate_arr[index][indx - 1] = this.onGenerateCharacter();
-		// 		// 			return
-		// 		// 		}
-		// 		// 		this.generate_arr[index][indx - 1] = character;
-		// 		// 	}
-		// 		// )
-		// 	}
-		// );
-		// console.log(this.generate_arr);
+		let new_array = getSymbolArray(character,0.2);
+		this.generate_arr = new_array;
 		let count_first_character: number = 0;
 		let count_second_character: number = 0;
 		let time = moment().format('ss');
 		let first_character : string = this.generate_arr[time[0]][time[1]];
 		let second_character : string = this.generate_arr[time[1]][time[0]];
-		// console.log(`time: "${time}" first_character: ${first_character} second_character: ${second_character}`);
 		this.generate_arr.map(
 			(val, index) => {
 				val.map(
@@ -180,9 +144,9 @@ export class GeneratedataService {
 				)
 			}
 		);
-		// console.log(`time: "${time}" count_first_character: ${count_first_character} count_second_character: ${count_second_character}`);
+
 		this.onGenerateCode(count_first_character, count_second_character);
-		/**/
+
 	}
 
 	addPayment(itm: any){
@@ -190,7 +154,4 @@ export class GeneratedataService {
 		this.payment.set(index, itm);
 	}
 
-	getPayment(){
-		
-	}
 }
