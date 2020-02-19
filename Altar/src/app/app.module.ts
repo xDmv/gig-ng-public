@@ -6,15 +6,18 @@ import { AppComponent } from './app.component';
 import { GeneratorComponent } from './pages/generator/generator.component';
 import { PaymentsComponent } from './pages/payments/payments.component';
 import { ErorComponent } from './pages/eror/eror.component';
+import { GridComponent } from './pages/payments/grid/grid.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     GeneratorComponent,
     PaymentsComponent,
-    ErorComponent
+    ErorComponent,
+    GridComponent
   ],
   imports: [
     BrowserModule,

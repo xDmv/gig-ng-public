@@ -6,12 +6,13 @@
 			[ngClass]="valide ? '' : 'has-danger'" >
 				<label for="InputCharacter">Character</label>
 				<input 
-					type="email" 
+					type="text" 
 					class="form-control"  
 					[ngClass]="valide ? '' : 'is-invalid'" id="InputCharacter" 
 					placeholder="Enter 1 character" 
 					[(ngModel)]="character" 
 					[disabled]="fixed"
+					pattern="[A-Za-z]"
 					(input)="onAddCharacter()">
 				<div *ngIf="valide" class="invalid-feedback">
 					Sorry, enter only 1 character.
@@ -19,12 +20,21 @@
 			</div>
 		</div>
 		<div class="col-md-5 col-xs-5 blockquote time-center">
-			<p class="text-center text-info">{{ mytime }}</p>
+			<p class="text-center text-info">{{ generator.newtime }}</p>
 		</div>
-		<!-- <div class="col-md-3 col-xs-3"></div> -->
-		<div 
-			class="col-md-4 col-xs-4 btn-generate-center">
-			<button type="button" class="btn btn-primary" >Generate GRID</button>
+		<div class="col-md-4 col-xs-4 btn-generate-center">
+			<button 
+				type="button" 
+				class="btn btn-outline-primary" 
+				(click)="generator.onGenerateGrid()">
+				Generate GRID
+			</button>
+			<button 
+				type="button" 
+				class="btn btn-outline-secondary" 
+				routerLink="/payments">
+					Payments
+			</button>
 		</div>
 	</div>
 	<table class="table table-hover">
@@ -43,10 +53,7 @@
 				<th scope="col-1">9</th>
 			</tr>
 		</thead>
-		<!-- <tbody *ngIf="finish_generate === false">
-			<tr>No fond</tr>
-		</tbody> -->
-		<tbody *ngFor="let s of generate_arr; let i = index;">
+		<tbody *ngFor="let s of generator.generate_arr; let i = index;">
 			<tr [ngClass]="onClassGrid() ? 'table-dark' : ''">
 				<th scope="row">{{i}}</th>
 				<td scope="col-1" *ngFor="let indx of coltb">
@@ -59,9 +66,8 @@
 	<footer class="footer">
 		<div class="card border-secondary mb-3" style="max-width: 10rem;">
 			<div class="card-body text-center">
-				<p class="text-uppercase"><span class="circle"></span> Live</p>
-				<p class="card-title text-uppercase">Your code {{ code }}</p>
-
+				<p class="text-uppercase live"><span class="circle"></span> Live</p>
+				<p class="card-title text-uppercase">Your code {{ generator.code }}</p>
 			</div>
 		</div>
 	</footer>

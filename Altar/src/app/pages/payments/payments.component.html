@@ -1,1 +1,64 @@
-<p>payments works!</p>
+<div class="container">
+	<nav class="code">
+		<div class="card border-secondary mb-3" style="max-width: 10rem;">
+			<div class="card-body text-center">
+				<p class="text-uppercase live"><span class="circle"></span> Live</p>
+				<p class="card-title text-uppercase">Your code {{ generator.code }}</p>
+			</div>
+		</div>
+	</nav>
+	<div class="row">
+		<div class="col-md-3 col-xs-3">
+			<div class="form-group">
+				<label for="">Payment</label>
+				<input type="text" 
+					class="form-control"
+					placeholder="Payment"
+					[(ngModel)]="name"
+				>
+				<div class="invalid-feedback">
+
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3 col-xs-3">
+			<div class="form-group">
+				<label for="">Ammount</label>
+				<input type="number"
+					class="form-control"
+					placeholder="Ammount"
+					pattern="\d [0-9]{9}"
+					[(ngModel)]="amount"
+					>
+				<div class="invalid-feedback">
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2 col-xs-2 btn-add">
+			<button 
+				type="button" 
+				class="btn btn-outline-primary " 
+				(click)="onAddPayment()">
+				+ Add
+			</button>
+		</div>
+
+		<div class="col-md-4 col-xs-4 btn-generate">
+			<button 
+				type="button" 
+				class="btn btn-outline-secondary" 
+				(click)="onSendToApi()">
+				send to API all data
+			</button>
+			<button 
+				type="button" 
+				class="btn btn-outline-secondary" 
+				routerLink="/generator"
+				>
+				Generator
+			</button>
+		</div>
+	</div>
+	<app-grid ></app-grid>
+
+</div>

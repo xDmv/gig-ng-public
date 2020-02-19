@@ -1,0 +1,18 @@
+<table class="table table-hover">
+	<thead>
+		<tr class="row">
+			<th class="col-6">Name</th>
+			<th class="col-2">Ammount</th>
+			<th class="col-2">Code</th>
+			<th class="col-2">Grid</th>
+		</tr>
+	</thead>
+	<tbody >
+		<tr class="row" *ngFor="let obj of generator.payment | keyvalue; let i = index;" [ngClass]="onTableClass(i) ? 'table-dark':''">
+			<th class="col-6">{{ obj.value.name }}</th>
+			<th class="col-2">{{ obj.value.amount }}</th>
+			<th class="col-2">{{ obj.value.code }}</th>
+			<th class="col-2">{{ obj.value.grid }}</th>
+		</tr>
+	</tbody>
+</table>
