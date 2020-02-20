@@ -11,7 +11,6 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 export class GeneratorComponent implements OnInit {
 	charter_max: number = 20;
 	colum_tb = [0,1,2,3,4,5,6,7,8,9];
-	character : string;
 	valide    : boolean = true;
 	dark  = true;
 	fixed = false;
@@ -47,10 +46,8 @@ export class GeneratorComponent implements OnInit {
 		if(this.f.letter.valid && (this.f.letter.value.length < 1 && this.f.letter.value !== '')){
 			return
 		}
-
 		if(!this.fixed){
-			console.log('+');
-			this.generator.onAddCharacter(this.character);
+			this.generator.onAddCharacter(this.f.letter.value);
 		}
 		this.fixed = true;
 		setTimeout(() => { this.fixed = false; }, 4000); 
