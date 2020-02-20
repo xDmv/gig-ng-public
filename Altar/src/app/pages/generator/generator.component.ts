@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
-import * as moment from 'moment';
-
 import { GeneratedataService } from 'src/app/services/generatedata.service';
 
 @Component({
@@ -11,15 +8,14 @@ import { GeneratedataService } from 'src/app/services/generatedata.service';
 })
 export class GeneratorComponent implements OnInit {
 	charter_max: number = 20;
-	coltb = [0,1,2,3,4,5,6,7,8,9];
-
+	coltb               = [0,1,2,3,4,5,6,7,8,9];
 	character : string;
-	valide: boolean = true;
-	dark = true;
+	valide    : boolean = true;
+	dark  = true;
 	fixed = false;
 
 	constructor(
-	public generator: GeneratedataService
+		public generator : GeneratedataService
 	) { 
 
 	}

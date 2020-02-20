@@ -8,24 +8,23 @@ import { PaymentsComponent } from './pages/payments/payments.component';
 import { ErorComponent } from './pages/eror/eror.component';
 import { GridComponent } from './pages/payments/grid/grid.component';
 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    GeneratorComponent,
-    PaymentsComponent,
-    ErorComponent,
-    GridComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		GeneratorComponent,
+		PaymentsComponent,
+		ErorComponent,
+		GridComponent
+	],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		FormsModule
+	],
+	providers: [],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }

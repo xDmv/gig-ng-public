@@ -8,12 +8,12 @@ import { GeneratedataService } from 'src/app/services/generatedata.service';
 })
 export class PaymentsComponent implements OnInit {
 
-	name: string;
-	amount: number;
-	code: string;
+	name   : string;
+	amount : number;
+	code   : string;
 
 	constructor(
-		public generator: GeneratedataService
+		public generator : GeneratedataService
 	) {	}
 
 	ngOnInit(): void {
@@ -22,10 +22,10 @@ export class PaymentsComponent implements OnInit {
 
 	onAddPayment(){
 		let data = {
-			name: this.name,
-			amount: this.amount,
-			code: this.generator.code,
-			grid: 64
+			name   : this.name,
+			amount : this.amount,
+			code   : this.generator.code,
+			grid   : 64
 		}
 		this.generator.addPayment(data);
 	}

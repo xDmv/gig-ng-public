@@ -3,23 +3,23 @@
 	margin  : 0;
 }
 .btn-generate-center{
-	display            : flex;
+	display         : flex;
 	justify-content : center;
 }
 .footer{
-	display            : flex;
+	display         : flex;
 	justify-content : center;
 	margin-top      : 32px;
 	.live{
-		display: flex;
-		align-items: center;
-		justify-content: center;
+		display         : flex;
+		align-items     : center;
+		justify-content : center;
 		.circle{
 			background    : #00FF7F;
 			border-radius : 50%;
-			width            : 10px;
-			height           : 10px;
-			display          : block;
+			width         : 10px;
+			height        : 10px;
+			display       : block;
 			margin-right  : 5px;
 		}
 	}

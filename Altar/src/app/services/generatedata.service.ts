@@ -1,157 +1,149 @@
 import { Injectable } from '@angular/core';
+import { LocalStorage } from '@ngx-pwa/local-storage';
 
 import * as moment from 'moment';
-import * as lodash  from 'lodash';
+
 
 @Injectable({
 	providedIn: 'root'
 })
 export class GeneratedataService {
 
-	public generate_arr = [
-		['a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a'],
-		['a', 'a', 'a', 'a', 'y', 's', 'a', 'a', 'a', 'a'],
-		['a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a'],
-		['a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a'],
-		['a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a'],
-		['a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a'],
-		['a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a'],
-		['a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a'],
-		['a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a'],
-		['a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a']
-	];
-
-	public newtime: string;
-	public code: string;
+	public generate_arr = [];
+	public newtime : string;
+	public code    : string;
+	letters        : string = 'abcdefghijklmnopqrstuvwxyz';
 	public payment = new Map();
 
-	constructor() { 
-		setInterval(() => { this.newtime = moment().format('H:mm:ss'); }, 1000); 
+	constructor(
+		protected localStorage : LocalStorage
+	) {
+		this.localStorage.getItem('payment').subscribe((data) => {
+				if (data) {
+					let maps: any = data;
+					for (let entry of maps.keys()) {
+						this.payment.set(entry, maps.get(entry));
+					}
+				}
+			},
+			(error) => {
+				console.error(error);
+			}
+		);
+		this.onGenerateArr();
+		setInterval(() => { this.newtime = moment().format('H:mm:ss'); }, 1000);
 		setInterval(() => { this.onGenerateGrid(); }, 2000); 
 	}
 	
 	onGenerateCharacter() {
-		let letters = 'abcdefghijklmnopqrstuvwxyz';
 		let item: string;
-		item = letters[Math.floor(Math.random()*letters.length)];
+		item = this.letters[Math.floor(Math.random() * this.letters.length)];
 		return item;
 	}
 
 	onGenerateArr() {
-		this.generate_arr.map(
-			(val, index) => {
-				val.map(
-				(value, indx) => {
-					this.generate_arr[index][indx] = this.onGenerateCharacter();
-				}
-				)
+		let iMax = 10;
+		let jMax = 10;
+		let result = [];
+		for (let i = 0; i < iMax; i++) {
+			let row = [];
+			for (let j = 0; j < jMax; j++) {
+				row.push(this.onGenerateCharacter());
 			}
-		);
+			result.push(row);
+		}
+		this.generate_arr = result;
 	}
 
 	onGenerateGrid() {
 		this.onGenerateArr();
+		let iMax = 10;
+		let jMax = 10;
 		let count_first_character: number = 0;
 		let count_second_character: number = 0;
 		let time = moment().format('ss');
-		let first_character : string = this.generate_arr[time[0]][time[1]];
-		let second_character : string = this.generate_arr[time[1]][time[0]];
+		let first_character: string = this.generate_arr[time[0]][time[1]];
+		let second_character: string = this.generate_arr[time[1]][time[0]];
 
-		this.generate_arr.map(
-			(val, index) => {
-				val.map(
-				(value, indx) => {
-					if (first_character === this.generate_arr[index][indx]) {
+		for (let i = 0; i < iMax; i++) {
+			for (let j = 0; j < jMax; j++) {
+				if (first_character === this.generate_arr[i][j]) {
 					count_first_character = count_first_character + 1;
-					}
-					if (second_character === this.generate_arr[index][indx]) {
-					count_second_character = count_second_character + 1;
-					}
 				}
-				)
+				if (second_character === this.generate_arr[i][j]) {
+					count_second_character = count_second_character + 1;
+				}
 			}
-		);
+		}
+		
 
 		this.onGenerateCode(count_first_character, count_second_character);
 	}
 
 	onGenerateCode(first: number, scond: number) {
 		if (first > 9) {
-			let n = Math.ceil(first/9)
+			let n = Math.ceil(first / 9)
 			this.code = Math.ceil(first / n).toString();
 		} else {
 			this.code = first.toString();
 		}
 		if (scond > 9) {
-			let n = Math.ceil(scond/9)
+			let n = Math.ceil(scond / 9)
 			this.code += Math.ceil(scond / n).toString();
 		} else {
 			this.code += scond.toString();
 		}
 	}
 
-	onAddCharacter(character: string){
-		let getSymbolArray = function(symbol, symbolProbability,size = [10,10]){
-			let iMax=size[0];
-			let jMax=size[1];
-			let maxSymbolCount = Math.floor(iMax*jMax*symbolProbability);
-			let result = [];
-			let symbolCount = 0;
-			for(let i=0;i<iMax;i++){
-				let row = [];
-				for(let j=0;j<jMax;j++){
-					if(Math.random()<=symbolProbability && symbolCount<maxSymbolCount){
-						row.push(symbol);
-						symbolCount++;
-					}
-					else{
-						row.push(randSymbol(symbol));
-					}
-				}
-				result.push(row);
-				}
-				return result;
-			};
-			
-			let randSymbol = function(symbol,length=1) {
-				let result = '';
-				let characters = 'abcdefghijklmnopqrstuvwxyz';
-				characters.replace(symbol,'');
-				let charactersLength = characters.length;
-				for ( let i = 0; i < length; i++ ) {
-					result += characters.charAt(Math.floor(Math.random() * charactersLength));
-				}
-				return result;
-			}
-		let new_array = getSymbolArray(character,0.2);
-		this.generate_arr = new_array;
+	onRandSymbol(symbol, length = 1, characters) {
+		let result = '';
+		characters.replace(symbol, '');
+		let charactersLength = characters.length;
+		for (let i = 0; i < length; i++) {
+			result += characters.charAt(Math.floor(Math.random() * charactersLength));
+		}
+		return result;
+	}
+
+	onAddCharacter(character: string) {
+		let iMax = 10;
+		let jMax = 10;
 		let count_first_character: number = 0;
 		let count_second_character: number = 0;
 		let time = moment().format('ss');
-		let first_character : string = this.generate_arr[time[0]][time[1]];
-		let second_character : string = this.generate_arr[time[1]][time[0]];
-		this.generate_arr.map(
-			(val, index) => {
-				val.map(
-				(value, indx) => {
-					if (first_character === this.generate_arr[index][indx]) {
-					count_first_character = count_first_character + 1;
-					}
-					if (second_character === this.generate_arr[index][indx]) {
-					count_second_character = count_second_character + 1;
-					}
-				}
-				)
+		let result = [];
+		let characters: string = this.letters.replace(character, '');
+		for (let i = 0; i < iMax; i++) {
+			let row = [];
+			for (let j = 0; j < jMax; j++) {
+				row.push(this.onRandSymbol(character, 1, characters));
 			}
-		);
+			let x = Math.floor(Math.random() * 10);
+			if (x === 0) { x = 1 };
+			row = row.fill(character, x - 1, x + 1);
+			result.push(row);
+		}
 
+		this.generate_arr = result;
+		let first_character: string = this.generate_arr[time[0]][time[1]];
+		let second_character: string = this.generate_arr[time[1]][time[0]];
+		for (let i = 0; i < iMax; i++) {
+			for (let j = 0; j < jMax; j++) {
+				if (first_character === this.generate_arr[i][j]) {
+					count_first_character = count_first_character + 1;
+				}
+				if (second_character === this.generate_arr[i][j]) {
+					count_second_character = count_second_character + 1;
+				}
+			}
+		}
 		this.onGenerateCode(count_first_character, count_second_character);
-
 	}
 
-	addPayment(itm: any){
-		let index : number = this.payment.size
+	addPayment(itm: any) {
+		let index: number = this.payment.size
 		this.payment.set(index, itm);
+		this.localStorage.setItem('payment', this.payment).subscribe(() => {}, () => {});
 	}
 
 }

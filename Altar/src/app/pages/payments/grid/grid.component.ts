@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GeneratedataService } from 'src/app/services/generatedata.service';
 
 @Component({
@@ -8,9 +8,8 @@ import { GeneratedataService } from 'src/app/services/generatedata.service';
 })
 export class GridComponent implements OnInit {
 
-	@Input() dataSource: any;
 	constructor(
-		public generator: GeneratedataService
+		public generator : GeneratedataService
 	) { }
 	
 	ngOnInit(): void {
