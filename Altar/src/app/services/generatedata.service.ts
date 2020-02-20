@@ -95,9 +95,8 @@ export class GeneratedataService {
 		}
 	}
 
-	onRandSymbol(symbol, length = 1, characters) {
+	onRandSymbol(characters, length = 1 ) {
 		let result = '';
-		characters.replace(symbol, '');
 		let charactersLength = characters.length;
 		for (let i = 0; i < length; i++) {
 			result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -116,7 +115,7 @@ export class GeneratedataService {
 		for (let i = 0; i < iMax; i++) {
 			let row = [];
 			for (let j = 0; j < jMax; j++) {
-				row.push(this.onRandSymbol(character, 1, characters));
+				row.push(this.onRandSymbol(characters));
 			}
 			let x = Math.floor(Math.random() * 10);
 			if (x === 0) { x = 1 };

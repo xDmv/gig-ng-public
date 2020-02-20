@@ -8,7 +8,7 @@ import { GeneratedataService } from 'src/app/services/generatedata.service';
 })
 export class GeneratorComponent implements OnInit {
 	charter_max: number = 20;
-	coltb               = [0,1,2,3,4,5,6,7,8,9];
+	colum_tb = [0,1,2,3,4,5,6,7,8,9];
 	character : string;
 	valide    : boolean = true;
 	dark  = true;

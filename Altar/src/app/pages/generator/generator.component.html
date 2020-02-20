@@ -56,7 +56,7 @@
 		<tbody *ngFor="let s of generator.generate_arr; let i = index;">
 			<tr [ngClass]="onClassGrid() ? 'table-dark' : ''">
 				<th scope="row">{{i}}</th>
-				<td scope="col-1" *ngFor="let indx of coltb">
+				<td scope="col-1" *ngFor="let indx of colum_tb">
 					{{s[indx]}}
 				</td>
 			</tr>

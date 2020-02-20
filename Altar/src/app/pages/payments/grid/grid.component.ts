@@ -13,7 +13,6 @@ export class GridComponent implements OnInit {
 	) { }
 	
 	ngOnInit(): void {
-		
 	}
 
 	onTableClass(i: number){

@@ -36,6 +36,9 @@ export class PaymentsComponent implements OnInit {
 			rezult[key] = value
 		});
 		console.log(`Json: \n ${JSON.stringify(rezult)}`);
+		alert(`Sent to the server by API:
+			${JSON.stringify(rezult)}
+		`)
 	}
 
 }
