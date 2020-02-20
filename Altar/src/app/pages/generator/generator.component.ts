@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GeneratedataService } from 'src/app/services/generatedata.service';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+
 
 @Component({
 	selector: 'app-generator',
@@ -13,34 +15,45 @@ export class GeneratorComponent implements OnInit {
 	valide    : boolean = true;
 	dark  = true;
 	fixed = false;
+	//letter :  FormControl = new FormControl('', Validators.maxLength(1));
+	character_: FormGroup;
+	
 
 	constructor(
+		private formBuilder: FormBuilder,
 		public generator : GeneratedataService
 	) { 
 
 	}
 
 	ngOnInit(): void {
-
+		this.character_ = this.formBuilder.group({
+				letter :   new FormControl('', [ Validators.maxLength(1)])
+		})
 	}
 
+	get f(){ return this.character_.controls }
+
 	onClassGrid() {
-		if (this.dark !== true) {
-		this.dark = true;
-		return this.dark
-		}
-		this.dark = false;
-		return this.dark
+		this.dark = !this.dark;
+		return this.dark;
+	}
+
+	onGenerate(){
+		this.generator.onGenerateGrid()
 	}
 
 	onAddCharacter(){
-		this.valide = false;
-		if(this.character.length !== 1){
+		if(this.f.letter.valid && (this.f.letter.value.length < 1 && this.f.letter.value !== '')){
 			return
 		}
-		this.valide = true;
+
+		if(!this.fixed){
+			console.log('+');
+			this.generator.onAddCharacter(this.character);
+		}
 		this.fixed = true;
 		setTimeout(() => { this.fixed = false; }, 4000); 
-		this.generator.onAddCharacter(this.character);
+
 	}
 }

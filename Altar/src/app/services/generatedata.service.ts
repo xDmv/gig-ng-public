@@ -36,9 +36,7 @@ export class GeneratedataService {
 	}
 	
 	onGenerateCharacter() {
-		let item: string;
-		item = this.letters[Math.floor(Math.random() * this.letters.length)];
-		return item;
+		return this.letters[Math.floor(Math.random() * this.letters.length)];
 	}
 
 	onGenerateArr() {
@@ -117,8 +115,7 @@ export class GeneratedataService {
 			for (let j = 0; j < jMax; j++) {
 				row.push(this.onRandSymbol(characters));
 			}
-			let x = Math.floor(Math.random() * 10);
-			if (x === 0) { x = 1 };
+			let x = Math.floor(Math.random() * 10+1);
 			row = row.fill(character, x - 1, x + 1);
 			result.push(row);
 		}
